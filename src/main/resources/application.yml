@@ -1,0 +1,43 @@
+server:
+  port: 8048
+  address: 0.0.0.0
+spring:
+  profiles:
+    active: dev
+  application:
+    name: scg-scaffold-service
+  jpa:
+    format-sql: true
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    open-in-view: true
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: scaffold-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /api/v1.0/druid/**
+      - /api/v1.0/admin/login
+      - /api/v1.0/admin/register
+      - /api/v1.0/admin/info
+      - /api/v1.0/admin/logout
+      - /api/v1.0/health/check
