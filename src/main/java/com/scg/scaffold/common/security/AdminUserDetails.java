@@ -1,7 +1,7 @@
 package com.scg.scaffold.common.security;
 
-import com.scg.scaffold.entity.UmsAdmin;
-import com.scg.scaffold.entity.UmsResource;
+import com.scg.scaffold.model.UmsAdmin;
+import com.scg.scaffold.model.UmsResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

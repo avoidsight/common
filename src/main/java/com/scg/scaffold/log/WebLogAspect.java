@@ -2,7 +2,10 @@ package com.scg.scaffold.log;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.scg.scaffold.mapper.WebLogMapper;
+import com.scg.scaffold.model.WebLog;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -76,13 +80,13 @@ public class WebLogAspect {
         webLog.setUsername(request.getRemoteUser());
         webLog.setIp(request.getRemoteAddr());
         webLog.setMethod(request.getMethod());
-        webLog.setParameter(getParameter(method, joinPoint.getArgs()));
-        webLog.setResult(result);
+        webLog.setParameter(JSONUtil.parse(getParameter(method, joinPoint.getArgs())).toString());
+        webLog.setResult(JSONUtil.parse(result).toString());
         webLog.setSpendTime((int) (endTime - startTime));
         webLog.setStartTime(startTime);
         webLog.setUri(request.getRequestURI());
         webLog.setUrl(request.getRequestURL().toString());
-        webLogMapper.save(webLog);
+        webLogMapper.insert(webLog);
         return result;
     }
 

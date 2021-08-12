@@ -1,9 +1,11 @@
 package com.scg.scaffold.common.security;
 
+import com.scg.scaffold.common.security.component.DynamicSecurityMetadataSource;
 import com.scg.scaffold.common.security.component.JwtAuthenticationTokenFilter;
 import com.scg.scaffold.common.security.component.RestAuthenticationEntryPoint;
 import com.scg.scaffold.common.security.component.RestfulAccessDeniedHandler;
 import com.scg.scaffold.utils.JwtTokenUtil;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -98,6 +100,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtTokenUtil jwtTokenUtil() {
         return new JwtTokenUtil();
     }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
+        return new DynamicSecurityMetadataSource();
+    }
+
 
 
 }

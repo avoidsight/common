@@ -1,12 +1,27 @@
 package com.scg.scaffold.dao;
 
-import com.scg.scaffold.entity.UmsRole;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.scg.scaffold.model.UmsMenu;
+import com.scg.scaffold.model.UmsResource;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author menmenz
  * @version 1.0
- * @date 7/29/21 2:07 PM
+ * @date 8/12/21 7:51 PM
  */
-public interface UmsRoleDao extends JpaRepository<UmsRole, String> {
+public interface UmsRoleDao {
+    /**
+     * 根据后台用户ID获取菜单
+     */
+    List<UmsMenu> getMenuList(@Param("adminId") Long adminId);
+    /**
+     * 根据角色ID获取菜单
+     */
+    List<UmsMenu> getMenuListByRoleId(@Param("roleId") Long roleId);
+    /**
+     * 根据角色ID获取资源
+     */
+    List<UmsResource> getResourceListByRoleId(@Param("roleId") Long roleId);
 }
